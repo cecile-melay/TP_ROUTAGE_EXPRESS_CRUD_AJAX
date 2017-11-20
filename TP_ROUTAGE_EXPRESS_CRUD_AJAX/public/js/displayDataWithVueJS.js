@@ -49,7 +49,7 @@ var app7 = new Vue({
             });
         },
         next: function() {
-            if (app7.counter < 2536) {
+            if (app7.counter < 2535) {
                 document.getElementById("btnNext").disabled = false; 
             } else {
                 document.getElementById("btnNext").disabled = true; 
@@ -62,6 +62,7 @@ var app7 = new Vue({
             if (app7.counter < 2535) {
                 document.getElementById("btnNext").disabled = false; 
                 app7.counter++;
+                app7.selected = app7.counter;
                 console.log(app7.counter);
                 let url = "/api/restaurants?page="+app7.counter;
                 document.getElementById("btnPrevious").disabled = false;        
@@ -83,7 +84,8 @@ var app7 = new Vue({
         },
         prev: function() {
             console.log(app7.counter);
-            if (app7.counter < 2536) {
+           
+            if (app7.counter < 2535) {
                 document.getElementById("btnNext").disabled = false; 
             } else {
                 document.getElementById("btnNext").disabled = true; 
@@ -95,6 +97,7 @@ var app7 = new Vue({
             }       
             if (app7.counter > 1) {             
                 app7.counter--;
+                app7.selected = app7.counter;
                 let url = "/api/restaurants?page="+app7.counter;      
                 fetch(url)
                     .then(function(responseJSON) {
@@ -136,7 +139,7 @@ var app7 = new Vue({
         },
         updateView: function() {
             app7.counter = app7.selected;
-            if (app7.counter < 2536) {
+            if (app7.counter < 2535) {
                 document.getElementById("btnNext").disabled = false; 
             } else {
                 document.getElementById("btnNext").disabled = true; 
