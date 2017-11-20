@@ -49,16 +49,7 @@ var app7 = new Vue({
             });
         },
         next: function() {
-            if (app7.counter < 2535) {
-                document.getElementById("btnNext").disabled = false; 
-            } else {
-                document.getElementById("btnNext").disabled = true; 
-            }
-            if (app7.counter > 2) {
-                document.getElementById("btnPrevious").disabled = false;
-            } else {
-                document.getElementById("btnPrevious").disabled = true; 
-            }             
+            app7.updateButtons();      
             if (app7.counter < 2535) {
                 document.getElementById("btnNext").disabled = false; 
                 app7.counter++;
@@ -84,17 +75,7 @@ var app7 = new Vue({
         },
         prev: function() {
             console.log(app7.counter);
-           
-            if (app7.counter < 2535) {
-                document.getElementById("btnNext").disabled = false; 
-            } else {
-                document.getElementById("btnNext").disabled = true; 
-            }
-            if (app7.counter > 2) {
-                document.getElementById("btnPrevious").disabled = false;
-            } else {
-                document.getElementById("btnPrevious").disabled = true; 
-            }       
+            app7.updateButtons();  
             if (app7.counter > 1) {             
                 app7.counter--;
                 app7.selected = app7.counter;
@@ -139,16 +120,7 @@ var app7 = new Vue({
         },
         updateView: function() {
             app7.counter = app7.selected;
-            if (app7.counter < 2535) {
-                document.getElementById("btnNext").disabled = false; 
-            } else {
-                document.getElementById("btnNext").disabled = true; 
-            }
-            if (app7.counter > 2) {
-                document.getElementById("btnPrevious").disabled = false;
-            } else {
-                document.getElementById("btnPrevious").disabled = true; 
-            }
+            app7.updateButtons();           
             console.log(app7.selected);      
             let url = "/api/restaurants?page="+app7.selected;      
             fetch(url)
@@ -165,8 +137,22 @@ var app7 = new Vue({
                 .catch(function (err) {
                     console.log(err);
             });
+        },
+        updateButtons: function() {          
+            if (app7.counter < 2535) {
+                document.getElementById("btnNext").disabled = false; 
+            } else {
+                document.getElementById("btnNext").disabled = true; 
+            }
+            if (app7.counter > 2) {
+                document.getElementById("btnPrevious").disabled = false;
+            } else {
+                document.getElementById("btnPrevious").disabled = true; 
+            }
+    
         }
     }
+    
   });
 
   app7.init();
