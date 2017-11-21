@@ -8,7 +8,7 @@
 
 ## B Consignes du TP3
 
-10) Ajouter dans App.vue un <p>Ceci est un test<p>. Que fait le CSS de User.vue ? Ajouter l'attribut "scoped" à la balise <style> de User.vue, que se passe-t-il ?
+10) Ajouter dans App.vue un `<p>Ceci est un test<p>`. Que fait le CSS de User.vue ? Ajouter l'attribut "scoped" à la balise <style> de User.vue, que se passe-t-il ?
 
 //
 
@@ -49,8 +49,8 @@ Cela va créer un sous-répertoire my-app-vue-cli qui contiendra tout ce qu'il f
 
 8) Créer un composant User.vue qui affiche le nom d'un utilisateur, le mettre en GLOBAL component
 
-9) Créer un composant Info.vue qui affiche des infos supplémentaires sous forme de <p>, et qui soit LOCAL à User.vue
+9) Créer un composant Info.vue qui affiche des infos supplémentaires sous forme de `<p>`, et qui soit LOCAL à User.vue
 
-10) Ajouter dans App.vue un <p>Ceci est un test<p>. Que fait le CSS de User.vue ? Ajouter l'attribut "scoped" à la balise <style> de User.vue, que se passe-t-il ?
+10) Ajouter dans App.vue un `<p>Ceci est un test<p>`. Que fait le CSS de User.vue ? Ajouter l'attribut "scoped" à la balise <style> de User.vue, que se passe-t-il ?
 
 11) En étant sûr d'être dans le répertoire du projet faites "npm install -save vue-router" pour installer le module de routage de vueJS.
