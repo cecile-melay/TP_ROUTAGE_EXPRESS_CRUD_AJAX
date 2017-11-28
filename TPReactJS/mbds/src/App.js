@@ -46,21 +46,25 @@ class App extends Component {
   }
 
   init() {
-    let url = "/api/restaurants";  
+    let url = "http://localhost:8080/api/restaurants";  
     //document.getElementById("btnPrevious").disabled = true;      
     fetch(url)
     .then((response) => response.json())
     .then((responseJson) => {
       console.log(responseJson);
-      // Maintenant res est un vrai objet JavaScript
+      console.log(this.state);
+      let data = [];
       for (var i=0; i < responseJson.data.length; i++) {
-        this.state.push(responseJson.data[i]);
+         data.push(responseJson.data[i].name);
       }
+      this.setState({
+          hobbies:data,
+          input : ""
+      });
     })
     .catch((error) => {
       console.error(error);
-    });
-        
+    });      
   }
 
   addHobby() {
