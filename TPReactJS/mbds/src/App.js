@@ -45,6 +45,24 @@ class App extends Component {
     };
   }
 
+  init() {
+    let url = "/api/restaurants";  
+    //document.getElementById("btnPrevious").disabled = true;      
+    fetch(url)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      // Maintenant res est un vrai objet JavaScript
+      for (var i=0; i < responseJson.data.length; i++) {
+        this.state.push(responseJson.data[i]);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+        
+  }
+
   addHobby() {
     //alert("addHobby: " + this.state.input);
     const oldHobbies = this.state.hobbies;
@@ -83,6 +101,10 @@ class App extends Component {
         return <li key={el+index} style={liStyle} index={index} onClick={() => this.removeHobby(el)}>{el}</li>
       }
     );
+
+    this.init();
+
+    console.log(this.state);
 
     let listComponents = this.state.hobbies.map(
       (el, index) => {
