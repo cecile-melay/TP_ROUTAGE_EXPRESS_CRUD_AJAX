@@ -1,25 +1,3 @@
-/*import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
-
-export default App;*/
-
 import React, { Component } from 'react';
 
 // Composant fonctionnel
@@ -37,22 +15,27 @@ function Hobby(props) {
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.loadData();
     
     this.state = {
-      hobbies : ['foot', 'tennis'],
+      hobbies : [],
+      pageState : 0,
+      selected: 1,
       input: "",
       hobbyWasDeleted: false
     };
+
+    
+
   }
 
-  init() {
+  loadData() {
     let url = "http://localhost:8080/api/restaurants";  
     //document.getElementById("btnPrevious").disabled = true;      
     fetch(url)
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson);
-      console.log(this.state);
       let data = [];
       for (var i=0; i < responseJson.data.length; i++) {
          data.push(responseJson.data[i].name);
@@ -96,7 +79,57 @@ class App extends Component {
     })
   }
 
+  prevPage() {
+    console.log(this.state.pageState);
+    //app7.updateButtons();  
+    if (this.state.pageState > 1) {             
+        this.state.pageState--;
+        this.state.selected = this.state.pageState;
+        let url = "http://localhost:8080/api/restaurants?page="+this.state.pageState;  
+        //document.getElementById("btnPrevious").disabled = true;      
+        fetch(url)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          let data = [];
+          for (var i=0; i < responseJson.data.length; i++) {
+             data.push(responseJson.data[i].name);
+          }
+          this.setState({
+              hobbies:data,
+              input : ""
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });    
+    }
+  }
+
+  nextPage() {
+    this.state.pageState++;
+    let url = "http://localhost:8080/api/restaurants?page="+this.state.pageState;  
+    //document.getElementById("btnPrevious").disabled = true;      
+    fetch(url)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      let data = [];
+      for (var i=0; i < responseJson.data.length; i++) {
+         data.push(responseJson.data[i].name);
+      }
+      this.setState({
+          hobbies:data,
+          input : ""
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });      
+  }
+
   render() {
+
+   // 
+
     let list = this.state.hobbies.map(
       (el, index) => {
         const liStyle = {
@@ -106,7 +139,7 @@ class App extends Component {
       }
     );
 
-    this.init();
+    
 
     console.log(this.state);
 
@@ -133,23 +166,25 @@ class App extends Component {
     const hobbyCounterClass = (this.state.hobbies.length > 3) ? "redBorder" : ""
     return (
       <div className="App">
-      <h3>My hobbies:</h3>
-      <input onChange={this.inputChanged.bind(this)} 
-            type="text" 
-            value={this.state.input}
-            placeholder="new hobby"/>
-        <button onClick={this.addHobby.bind(this)}>New Hobby</button>
-        {hobbyDeletedParagraph}
-        <p style={hobbyCounterStyle} className={hobbyCounterClass}> Hobbies : {this.state.hobbies.length}</p>
-        <ul>
-          {list}
-        </ul>
+        <h3>My hobbies:</h3>
+        <input onChange={this.inputChanged.bind(this)} 
+              type="text" 
+              value={this.state.input}
+              placeholder="new hobby"/>
+          <button onClick={this.addHobby.bind(this)}>New Hobby</button>
+          {hobbyDeletedParagraph}
+          <p style={hobbyCounterStyle} className={hobbyCounterClass}> Hobbies : {this.state.hobbies.length}</p>
+          <ul>
+            {list}
+          </ul>
 
-        
-        <p>Avec composant séparé</p>
-        <ul>
-          {listComponents}
-        </ul>
+          
+          <p>Avec composant séparé</p>
+          <ul>
+            {listComponents}
+          </ul>
+          <button onClick={this.prevPage.bind(this)}>Précédent</button>
+          <button onClick={this.nextPage.bind(this)}>Suivant</button>
        </div>
     );
   }
